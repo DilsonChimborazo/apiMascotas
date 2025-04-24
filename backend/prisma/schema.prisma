@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+enum Rol{
+  admin
+  usuario
+}
+
+//modelo de usuarios
+model Users {
+  identificacion BigInt  @id @unique
+  fullname       String  @db.VarChar(32)
+  email          String  @unique
+  password       String  @db.VarChar(255)
+  rol            Rol     @default(admin)
+  pets           Pets[]  
+}
+
+// modelo de razas
+model Races {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(32)
+  pets  Pets[]  
+}
+
+// modelo de categorias
+model categories {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(32)
+  pets  Pets[]  
+}
+
+// modelo de genero
+model Genders {
+  id    Int     @id @default(autoincrement())
+  name  String  @db.VarChar(32)
+  pets  Pets[]  
+}
+
+enum Estado{
+  Disponible
+  Adoptado
+}
+
+// modelo de mascotas
+model Pets {
+  id           Int     @id @default(autoincrement())
+  race_id      Int
+  category_id  Int
+  genders_id   Int
+  Users_id     BigInt
+  photo        String  @db.VarChar(255)
+  estado       Estado  @default(Disponible)
+  //relaciones de los modelos 
+  user         Users     @relation(fields: [Users_id], references: [identificacion])
+  race         Races     @relation(fields: [race_id], references: [id])
+  category     categories @relation(fields: [category_id], references: [id])
+  gender       Genders   @relation(fields: [genders_id], references: [id])
+}
