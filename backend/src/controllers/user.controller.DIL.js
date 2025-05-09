@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export const createUserDIL = async (req, res) => {
     try {
-        const { fullname, email, password, rol } = req.body;
+        const {identificacion, fullname, email, password, rol } = req.body;
 
         if (!password) {
             return res.status(400).json({ msg: "Password is required" });
@@ -15,6 +15,7 @@ export const createUserDIL = async (req, res) => {
 
         const user = await prisma.users.create({
             data: {
+                identificacion,
                 fullname,
                 email,
                 password: hashedPassword,
@@ -73,7 +74,7 @@ export const getUserByIdDIL = async (req, res) => {
 export const updateUserDIL = async (req, res) => {
     try {
         const { id } = req.params;
-        const { fullname, email, password, rol } = req.body;
+        const {fullname, email, password, rol } = req.body;
         let updatedData = { fullname, email, rol };
         if (password) {
             updatedData.password = await bcrypt.hash(password, 10); 

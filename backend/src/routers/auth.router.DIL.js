@@ -4,4 +4,4 @@ import { loginUserDIL } from "../controllers/auth.controller.DIL.js";
 
 
 export const LoginRouter = Router()
-LoginRouter.post('/login',loginUserDIL)
+LoginRouter.post('/loginDIL',loginUserDIL)

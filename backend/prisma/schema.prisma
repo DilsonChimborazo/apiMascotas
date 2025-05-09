@@ -58,13 +58,14 @@ model Pets {
   id           Int     @id @default(autoincrement())
   race_id      Int
   category_id  Int
-  genders_id   Int
-  Users_id     BigInt
+  gender_id   Int
+  User_id     BigInt
+  name         String  @db.VarChar(30)
   photo        String  @db.VarChar(255)
   estado       Estado  @default(Disponible)
   //relaciones de los modelos 
-  user         Users     @relation(fields: [Users_id], references: [identificacion])
+  user         Users     @relation(fields: [User_id], references: [identificacion])
   race         Races     @relation(fields: [race_id], references: [id])
   category     categories @relation(fields: [category_id], references: [id])
-  gender       Genders   @relation(fields: [genders_id], references: [id])
+  gender       Genders   @relation(fields: [gender_id], references: [id])
 }

@@ -47,7 +47,7 @@ export const loginUserDIL = async (req, res) => {
     }
 };
 
-export const verifyToken = (req, res, next) => {
+export const verifyTokenDIL = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {

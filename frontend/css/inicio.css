@@ -1,0 +1,107 @@
+body{
+    background-color:#003055;
+    margin: 0;
+    padding: 0;
+}
+h1{
+    text-align: center;
+    color: white;
+}
+img{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    margin: 0 auto;
+}
+
+a{
+    display: flex;
+    margin: 0 auto;
+    border-radius: 50px;
+    border: 0;
+    margin-bottom: 50px;
+}
+
+.container{
+    margin:50px ;
+    border-radius: 50px;
+    padding: 10px;
+    background-color:rgb(106, 100, 100);
+    opacity: 50%;
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center; 
+}
+
+.container .foto{
+    background-color: white;
+    border-radius:100%;
+    width: 80px;
+    height: 80px;
+    margin-left: 40px;
+    display: flex;
+    align-items: center; 
+    text-align: center;
+}
+.acciones{
+    display: flex;
+    position: absolute;
+    margin-left: 1100px;
+}
+
+.container .datos{
+    display: block;
+    margin-left: 20px;
+    color: rgb(157, 146, 146);
+}
+
+@media(min-width: 750px){
+    h1{
+        text-align: center;
+        color: white;
+    }
+    img{
+        padding: 0;
+        margin: 0;
+        display: flex;
+        margin: 0 auto;
+    }
+    
+    a{
+        display: flex;
+        margin: 0 auto;
+        border-radius: 50px;
+        border: 0;
+        margin-bottom: 50px;
+    }
+    
+    .container{
+        margin:50px ;
+        border-radius: 50px;
+        padding: 10px;
+        background-color:rgb(106, 100, 100);
+        opacity: 50%;
+        width: 75%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center; 
+    }
+    
+    .container .foto{
+        background-color: white;
+        border-radius:100%;
+        width: 80px;
+        height: 80px;
+        margin-left: 40px;
+        display: flex;
+        align-items: center; 
+        text-align: center;
+    }
+    
+    .container .datos{
+        display: block;
+        margin-left: 20px;
+        color: rgb(157, 146, 146);
+    }
+}
