@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Gestión de Mascotas</title>
+  <script src="js/crearmascota.js"></script>
   <link rel="stylesheet" href="css/crearmascotas.css">
 </head>
 <body>
-  <h1>Adicionar Mascotas</h1>
+  <div class="header">
+    <a href="mascotasInicio.html" class="back"><img src="images/btn-back.svg" alt="Atras"></a>
+    <h1 class="title">Adicionar Mascotas</h1>
+    <a href="index.html" class="close"><img src="images/btn-close.svg" alt="Cerrar"></a>
+  </div>
 
   <form id="petForm">
     <input type="text" id="name" placeholder="Nombre de la mascota" required><br>
@@ -16,14 +21,17 @@
     <select id="gender" required></select>
     <select id="User" required></select>
 
-    <input type="file" id="photo" placeholder="URL de la foto"><br>
+    <input type="file" id="photo" placeholder="Seleccione una foto"><br>
     <select id="estado" required>
+      <option value="">Seleccione Estado</option>
       <option value="Disponible">Disponible</option>
       <option value="Adoptado">Adoptado</option>
     </select><br>
 
-    <button type="submit">Registrar Mascota</button>
+    <div class="button">
+      <a type="submit"><img src="images/btn-save.svg" alt=""></a>
+    </div>
   </form>
-  <script src="js/crearmascota.js"></script>
+  
 </body>
 </html>

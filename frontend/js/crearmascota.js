@@ -20,7 +20,15 @@ function fillSelect(selectId, data, label = "name") {
     return;
   }
 
-  select.innerHTML = '<option value="">Seleccione...</option>';
+  const placeholders = {
+    race: "Seleccione una raza",
+    category: "Seleccione una categoría",
+    gender: "Seleccione un género",
+    User: "Seleccione un usuario"
+  };
+
+  const placeholderText = placeholders[selectId] || "Seleccione";
+  select.innerHTML = `<option value="">${placeholderText}</option>`;
 
   if (!Array.isArray(data)) {
     console.error(`Datos para ${selectId} no son un array`);
@@ -34,6 +42,7 @@ function fillSelect(selectId, data, label = "name") {
     select.appendChild(option);
   });
 }
+
 
 // Cargar datos para los selects
 async function loadSelectData() {
@@ -123,11 +132,10 @@ function setupFormHandler() {
   });
 }
 
-// Inicialización
 function initializeApp() {
   try {
-    loadSelectData(); // Cargar datos para los selects
-    setupFormHandler(); // Configurar el formulario
+    loadSelectData(); 
+    setupFormHandler(); 
   } catch (error) {
     console.error("Error al inicializar la aplicación:", error);
     alert("Error al cargar la aplicación");

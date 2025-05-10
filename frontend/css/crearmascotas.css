@@ -1,39 +1,44 @@
-body {
-  margin: 0;
-  padding: 20px; 
-  font-family: 'Arial', sans-serif;
+* {
+  margin: 5px;
+  padding: 0px;
   background-color: #1e3d72;
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  min-height: 100vh; 
-  box-sizing: border-box;
 }
 
-h1 {
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
   color: white;
-  margin: 20px 0;
-  font-size: 22px;
-  text-align: center;
+  margin-bottom: 50px;
 }
+
+
+.title {
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  pointer-events: none;
+}
+
 
 .form-container {
   width: 100%;
-  max-width: 400px; 
-  margin: 20px auto; 
+  max-width: 400px;
+  margin: 20px auto;
 }
-
 
 form#petForm {
   width: 100%;
 }
 
-
 form#petForm::before {
   content: "";
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
+  border: 5px solid #345080 ;
   margin: 0 auto 20px auto;
   border-radius: 50%;
   background-color: white;
@@ -43,35 +48,26 @@ form#petForm::before {
   background-size: 50px;
 }
 
-
-form#petForm input[type="text"],
-form#petForm input[type="file"],
+form#petForm input,
+form#petForm input,
 form#petForm select {
   margin: 10px 0;
-  padding: 12px;
+  padding: 15px;
   border: none;
-  border-radius: 12px;
+  border-radius: 50px;
   font-size: 14px;
   background-color: #f1f1f1;
-  opacity: 0.8; 
-  width: 100%; 
-  box-sizing: border-box; 
+  opacity: 0.8;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Botón de enviar */
-#petForm button[type="submit"] {
+
+#petForm .button a img {
+  border-radius: 50px;
+  text-align: center;
   display: block;
   margin: 25px auto 0 auto;
-  padding: 12px 30px;
-  background-color: #238033;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-#petForm button[type="submit"]:hover {
-  background-color: #2ca044;
-}
