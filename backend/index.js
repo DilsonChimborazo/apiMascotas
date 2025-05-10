@@ -35,6 +35,6 @@ app.use(raceRouter);
 
 // Iniciar servidor
 app.listen(3000, '0.0.0.0', () => {
-    console.log(`Servidor iniciado en http://192.168.101.7:3000`);
-    console.log(`Documentación en http://192.168.101.7:3000/docs`);
+    console.log(`Servidor iniciado en http://192.168.101.2:3000`);
+    console.log(`Documentación en http://192.168.101.2:3000/docs`);
 });

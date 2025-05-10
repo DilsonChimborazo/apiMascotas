@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.101.7:3000";
+const API_URL = "http://192.168.101.2:3000";
 
 function getAuthHeaders() {
   const token = localStorage.getItem("token");
@@ -27,9 +27,9 @@ async function loadPets() {
           </div>
         </div>
         <div class="pet-actions">
-          <img src="images/btn-show.svg" alt="Ver">
-          <img src="images/btn-edit.svg" alt="Editar">
-          <img src="images/btn-delete.svg" alt="Eliminar">
+          <a href="vermascotas.html?id=${pet.id}"><img src="images/btn-show.svg" alt="Ver"></a>
+          <a href="vermascotas.html"><img src="images/btn-edit.svg" alt="Editar"></a>
+          <a href="vermascotas.html"><img src="images/btn-delete.svg" alt="Eliminar"></a>
         </div>
       `;
 

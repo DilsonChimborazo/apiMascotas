@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.101.7:3000";
+const API_URL = "http://192.168.101.2:3000";
 
 // Función para obtener encabezados con token
 function getAuthHeaders() {
