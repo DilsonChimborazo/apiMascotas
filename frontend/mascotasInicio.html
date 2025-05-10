@@ -2,27 +2,22 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Gestión de Mascotas</title>
+  <title>Administrar Mascotas</title>
   <link rel="stylesheet" href="css/inicio.css">
+  <script src="js/listarmascotas.js" defer></script>
 </head>
 <body>
-  <a href="crearmascotas.html"><img src="images/btn-add.svg" alt=""></a>
-  <h2>Mascotas Registradas</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Raza</th>
-        <th>Categoría</th>
-        <th>Género</th>
-        <th>Usuario</th>
-        <th>Estado</th>
-        <th>Foto</th>
-      </tr>
-    </thead>
-    <tbody id="petList"></tbody>
-  </table>
+  <div class="header">
+    <h1 class="title">Administrar Mascotas</h1>
+    <a href="index.html" class="close"><img src="images/btn-close.svg" alt="Cerrar"></a>
+  </div>
 
-  <script src="js/listarmascotas.js"></script>
+  <div class="content">
+    <a href="crearmascotas.html" class="btn-add">
+      <img src="images/btn-add.svg" alt="Adicionar">
+    </a>
+
+    <div id="petList" class="pet-list"></div>
+  </div>
 </body>
 </html>

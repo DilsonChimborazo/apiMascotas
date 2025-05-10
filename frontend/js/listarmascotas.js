@@ -1,45 +1,40 @@
 const API_URL = "http://192.168.101.7:3000";
 
-// Función para obtener encabezados con token
 function getAuthHeaders() {
   const token = localStorage.getItem("token");
-  if (!token) {
-    console.error("No se encontró token en localStorage");
-    return {};
-  }
-  return {
-    "Authorization": `Bearer ${token}`
-  };
+  return token ? { "Authorization": `Bearer ${token}` } : {};
 }
 
-// Mostrar mascotas
 async function loadPets() {
   try {
     const res = await fetch(`${API_URL}/petsDIL`, { headers: getAuthHeaders() });
     if (!res.ok) throw new Error("Error al cargar mascotas");
 
     const pets = await res.json();
-    const tbody = document.getElementById("petList");
-    if (!tbody) throw new Error("Tabla de mascotas no encontrada");
-
-    tbody.innerHTML = "";
+    const container = document.getElementById("petList");
+    container.innerHTML = "";
 
     pets.forEach(pet => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${pet.name || 'N/A'}</td>
-        <td>${pet.race?.name || 'N/A'}</td>
-        <td>${pet.category?.name || 'N/A'}</td>
-        <td>${pet.gender?.name || 'N/A'}</td>
-        <td>${pet.user?.fullname || 'N/A'}</td>
-        <td>${pet.estado || 'N/A'}</td>
-        <td>
-          ${pet.photo 
-            ? `<img src="${API_URL}/images/${pet.photo}" alt="Foto" style="width: 80px; height: auto; border-radius: 5px;" />`
-            : 'Sin foto'}
-        </td>
+      const card = document.createElement("div");
+      card.className = "pet-card";
+
+      card.innerHTML = `
+        <div class="pet-info">
+          <img class="pet-photo" src="${pet.photo ? `${API_URL}/images/${pet.photo}` : 'images/default-pet.png'}" alt="Foto">
+          <div>
+            <h1 class="pet-name">${pet.name || 'Sin nombre'}</h1>
+            <p class="pet-race">${pet.race?.name || 'Sin raza'}</p>
+          </div>
+        </div>
+        <div class="pet-actions">
+          <img src="images/btn-show.svg" alt="Ver">
+          <img src="images/btn-edit.svg" alt="Editar">
+          <img src="images/btn-delete.svg" alt="Eliminar">
+        </div>
       `;
-      tbody.appendChild(row);
+
+      container.appendChild(card);
+      console.log(pet.photo)
     });
   } catch (error) {
     console.error("Error al cargar mascotas:", error);
@@ -47,14 +42,4 @@ async function loadPets() {
   }
 }
 
-// Inicialización
-function initializeApp() {
-  try {
-    loadPets();
-  } catch (error) {
-    console.error("Error al inicializar la aplicación:", error);
-    alert("Error al cargar la aplicación");
-  }
-}
-
-document.addEventListener("DOMContentLoaded", initializeApp);
+document.addEventListener("DOMContentLoaded", loadPets);

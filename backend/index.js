@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Carpeta de imágenes
-app.use('/image', express.static('uploads'));  
+app.use('/images', express.static('images'));  
 
 // Cargar la documentación Swagger
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');

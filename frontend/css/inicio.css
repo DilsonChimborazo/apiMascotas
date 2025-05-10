@@ -1,107 +1,84 @@
-body{
-    background-color:#003055;
+body {
     margin: 0;
-    padding: 0;
-}
-h1{
-    text-align: center;
-    color: white;
-}
-img{
-    padding: 0;
-    margin: 0;
-    display: flex;
-    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0b3778;
+    color: #333;
 }
 
-a{
+.header {
     display: flex;
-    margin: 0 auto;
-    border-radius: 50px;
-    border: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    color: white;
     margin-bottom: 50px;
 }
 
-.container{
-    margin:50px ;
-    border-radius: 50px;
-    padding: 10px;
-    background-color:rgb(106, 100, 100);
-    opacity: 50%;
-    width: 75%;
+.title {
     margin: 0 auto;
-    display: flex;
-    align-items: center; 
+    text-align: center;
+    font-weight: bold;
 }
 
-.container .foto{
-    background-color: white;
-    border-radius:100%;
-    width: 80px;
-    height: 80px;
-    margin-left: 40px;
-    display: flex;
-    align-items: center; 
+.close img {
+    width: 24px;
+    height: 24px;
+}
+
+.content {
+    padding: 20px;
     text-align: center;
 }
-.acciones{
+
+
+.pet-list {
+    margin-top: 50px;
     display: flex;
-    position: absolute;
-    margin-left: 1100px;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.container .datos{
-    display: block;
-    margin-left: 20px;
-    color: rgb(157, 146, 146);
+.pet-card {
+    display: flex;
+    align-items: center;
+    background-color: #c9d4e4;
+    border-radius: 20px;
+    padding: 10px 15px;
+    justify-content: space-between;
 }
 
-@media(min-width: 750px){
-    h1{
-        text-align: center;
-        color: white;
-    }
-    img{
-        padding: 0;
-        margin: 0;
-        display: flex;
-        margin: 0 auto;
-    }
-    
-    a{
-        display: flex;
-        margin: 0 auto;
-        border-radius: 50px;
-        border: 0;
-        margin-bottom: 50px;
-    }
-    
-    .container{
-        margin:50px ;
-        border-radius: 50px;
-        padding: 10px;
-        background-color:rgb(106, 100, 100);
-        opacity: 50%;
-        width: 75%;
-        margin: 0 auto;
-        display: flex;
-        align-items: center; 
-    }
-    
-    .container .foto{
-        background-color: white;
-        border-radius:100%;
-        width: 80px;
-        height: 80px;
-        margin-left: 40px;
-        display: flex;
-        align-items: center; 
-        text-align: center;
-    }
-    
-    .container .datos{
-        display: block;
-        margin-left: 20px;
-        color: rgb(157, 146, 146);
-    }
+.pet-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pet-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.pet-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3b4a69;
+}
+
+.pet-race {
+    font-size: 13px;
+    color: #7d8ca5;
+}
+
+.pet-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.pet-actions img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
 }
