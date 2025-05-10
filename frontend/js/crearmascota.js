@@ -43,7 +43,6 @@ function fillSelect(selectId, data, label = "name") {
   });
 }
 
-
 // Cargar datos para los selects
 async function loadSelectData() {
   try {
@@ -65,7 +64,7 @@ async function loadSelectData() {
   }
 }
 
-// Registrar mascota
+// Registrar mascota con depuración
 function setupFormHandler() {
   const form = document.getElementById("petForm");
   if (!form) {
@@ -75,6 +74,8 @@ function setupFormHandler() {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    console.log("➡ Formulario enviado. Preparando datos...");
 
     const elements = {
       name: document.getElementById("name"),
@@ -110,32 +111,43 @@ function setupFormHandler() {
       formData.append('photo', elements.photo.files[0]);
     }
 
+    console.log("📦 Datos del FormData:");
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}:`, pair[1]);
+    }
+
     try {
       const response = await fetch(`${API_URL}/petsDIL`, {
         method: "POST",
-        headers: getAuthHeaders(),
+        headers: getAuthHeaders(), 
         body: formData
       });
 
+      console.log("⏳ Esperando respuesta del servidor...");
+
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Respuesta del servidor:", errorData);
+        console.error("❌ Error del servidor:", errorData);
         throw new Error(errorData.message || "Error en el servidor");
       }
 
-      window.location.href = "mascotasinicio.html";
+      const result = await response.json();
+      console.log("✅ Mascota registrada con éxito:", result);
+
       form.reset();
+      window.location.href = "mascotasinicio.html";
     } catch (error) {
-      console.error("Error al registrar mascota:", error);
+      console.error("🚨 Error al registrar mascota:", error);
       alert(`Error: ${error.message}`);
     }
   });
 }
 
+// Inicialización de la app
 function initializeApp() {
   try {
-    loadSelectData(); 
-    setupFormHandler(); 
+    loadSelectData();
+    setupFormHandler();
   } catch (error) {
     console.error("Error al inicializar la aplicación:", error);
     alert("Error al cargar la aplicación");
