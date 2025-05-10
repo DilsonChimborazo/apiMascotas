@@ -29,13 +29,36 @@ async function loadPets() {
         <div class="pet-actions">
           <a href="vermascotas.html?id=${pet.id}"><img src="images/btn-show.svg" alt="Ver"></a>
           <a href="editarmascotas.html?id=${pet.id}"><img src="images/btn-edit.svg" alt="Editar"></a>
-          <a href="vermascotas.html"><img src="images/btn-delete.svg" alt="Eliminar"></a>
+          <a href="#" class="btn-delete" data-id="${pet.id}"><img src="images/btn-delete.svg" alt="Eliminar"></a>
         </div>
       `;
 
       container.appendChild(card);
-      console.log(pet.photo)
     });
+
+    container.querySelectorAll(".btn-delete").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute("data-id");
+
+        const confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta mascota?");
+        if (confirmDelete) {
+          try {
+            const res = await fetch(`${API_URL}/petsDIL/${id}`, {
+              method: "DELETE",
+              headers: getAuthHeaders()
+            });
+
+            if (!res.ok) throw new Error("Error al eliminar mascota");
+            loadPets(); 
+          } catch (error) {
+            console.error("Error al eliminar mascota:", error);
+            alert("Hubo un problema al eliminar la mascota");
+          }
+        }
+      });
+    });
+
   } catch (error) {
     console.error("Error al cargar mascotas:", error);
     alert("Error al cargar la lista de mascotas");
