@@ -28,7 +28,7 @@ async function loadPets() {
         </div>
         <div class="pet-actions">
           <a href="vermascotas.html?id=${pet.id}"><img src="images/btn-show.svg" alt="Ver"></a>
-          <a href="vermascotas.html"><img src="images/btn-edit.svg" alt="Editar"></a>
+          <a href="editarmascotas.html?id=${pet.id}"><img src="images/btn-edit.svg" alt="Editar"></a>
           <a href="vermascotas.html"><img src="images/btn-delete.svg" alt="Eliminar"></a>
         </div>
       `;

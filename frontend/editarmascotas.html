@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modificar Mascota</title>
+  <link rel="stylesheet" href="css/editarmascotas.css">
+  <script src="js/editarmascotas.js"></script>
+</head>
+<body>
+  <div class="header">
+    <a href="mascotasInicio.html" class="back"><img src="images/btn-back.svg" alt="Atras"></a>
+    <h3 class="title">Modificar Mascota</h3>
+    <a href="index.html" class="close"><img src="images/btn-close.svg" alt="Cerrar"></a>
+  </div>
+
+  <div class="pet-photo">
+    <img id="petPhoto" src="" alt="Foto de la mascota">
+    <input type="hidden" id="currentPhoto">
+  </div>
+
+  <form id="petForm">
+    <div class="input-card select-container">
+      <input type="text" id="name" placeholder="Nombre de la mascota" required>
+    </div>
+
+    <div class="input-card select-container">
+      <select id="race" required>
+        <option value="">Seleccione raza</option>
+      </select>
+    </div>
+
+    <div class="input-card select-container">
+      <select id="category" required>
+        <option value="">Seleccione categoría</option>
+      </select>
+    </div>
+
+    <div class="input-card select-container">
+      <select id="gender" required>
+        <option value="">Seleccione género</option>
+      </select>
+    </div>
+
+    <div class="input-card">
+      <input type="file" id="photo" accept="image/*">
+    </div>
+
+    <div class="input-card select-container">
+      <select id="User" required>
+        <option value="">Seleccione dueño</option>
+      </select>
+    </div>
+
+    <div class="input-card select-container">
+      <select id="estado" required>
+        <option value="">Seleccione estado</option>
+        <option value="Disponible">Disponible</option>
+        <option value="Adoptado">Adoptado</option>
+      </select>
+    </div>
+
+    <button type="submit" class="submit-btn">Guardar Cambios</button>
+  </form>
+
+</body>
+</html>

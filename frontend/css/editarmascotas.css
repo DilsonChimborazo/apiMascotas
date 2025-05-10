@@ -1,0 +1,112 @@
+* {
+  margin: 5px;
+  padding: 0px;
+  font-family: 'Arial', sans-serif;
+  background-color: #1e3d72;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.title {
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.close img {
+    width: 24px;
+    height: 24px;
+}
+
+.pet-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 30px;
+  overflow: hidden;
+}
+
+.pet-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.input-card {
+  background-color: #4A5B7C;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.input-card input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #E0E0E0;
+  font-size: 16px;
+}
+
+/* Estilos para los selects */
+.select-container select {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  padding-right: 25px; 
+}
+
+.select-container::after {
+  content: "▼";
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+
+.input-card input::file-selector-button {
+  background-color: #4A5B7C;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color: #00C4B4;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #00b3a3;
+}

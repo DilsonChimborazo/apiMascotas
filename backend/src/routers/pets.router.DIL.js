@@ -8,6 +8,6 @@ export const petRouter = Router()
 petRouter.post('/petsDIL',upload.single("photo"),verifyTokenDIL,createPetDIL )
 petRouter.get('/petsDIL',verifyTokenDIL, getPetsDIL )
 petRouter.get('/petsDIL/:id',verifyTokenDIL, getPetByIdDIL )
-petRouter.put('/petsDIL/:id',verifyTokenDIL, updatePetDIL )
+petRouter.put('/petsDIL/:id', upload.single("photo"), verifyTokenDIL, updatePetDIL);
 petRouter.delete('/petsDIL/:id',verifyTokenDIL, deletePetDIL )
 

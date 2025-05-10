@@ -110,17 +110,29 @@ export const getPetByIdDIL = async (req, res) => {
 export const updatePetDIL = async (req, res) => {
     try {
         const { id } = req.params;
-        const { race_id, category_id, gender_id, User_id, name, photo, estado } = req.body;
+        const { name, estado, currentPhoto } = req.body;
+        const race_id = parseInt(req.body.race_id);
+        const category_id = parseInt(req.body.category_id);
+        const gender_id = parseInt(req.body.gender_id);
+        const User_id = BigInt(req.body.User_id);
         
+        // Validación de campos requeridos
+        if (!name || !race_id || !category_id || !gender_id || !User_id || !estado) {
+            return res.status(400).json({ msg: "Todos los campos son requeridos" });
+        }
+
+        // Manejo de la imagen
+        const newPhoto = req.file ? req.file.filename : currentPhoto;
+
         const pet = await prisma.pets.update({
             where: { id: Number(id) },
             data: {
-                race_id: Number(race_id),
-                category_id: Number(category_id),
-                gender_id: Number(gender_id),
-                User_id: BigInt(User_id),
+                race_id,
+                category_id,
+                gender_id,
+                User_id,
                 name,
-                photo: req.file ? req.file.filename : photo,
+                photo: newPhoto,
                 estado,
             },
             include: {
