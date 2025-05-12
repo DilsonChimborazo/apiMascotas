@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value.trim();
 
         try {
-            const response = await fetch('http://192.168.101.2:3000/loginDIL', { 
+            const response = await fetch('http://192.168.101.7:3000/loginDIL', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

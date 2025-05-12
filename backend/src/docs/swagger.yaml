@@ -1,1243 +1,191 @@
 openapi: 3.0.0
 info:
-  title: API de Clientes y Factura
-  description: API para gestionar clientes y detalles de factura en el sistema.
+  title: API de Gestión de Mascotas
+  description: API para gestionar usuarios, mascotas, categorías, géneros, razas y autenticación en un sistema de gestión de mascotas.
   version: 1.0.0
 
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 paths:
-  # Rutas de clientes
-  /clientes:
-    post:
-      summary: Crear un nuevo cliente
-      description: Permite crear un nuevo cliente con los datos proporcionados.
-      operationId: crearClienteDIL
-      tags:
-        - Clientes
-      requestBody:
-        description: Datos del cliente a crear
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                clNombre:
-                  type: string
-                  description: Nombre del cliente
-                  example: "Juan Pérez"
-                clDireccion:
-                  type: string
-                  description: Dirección del cliente
-                  example: "Calle Falsa 123"
-                clTelefono:
-                  type: string
-                  description: Teléfono del cliente
-                  example: "+1234567890"
-                clCorreo:
-                  type: string
-                  description: Correo electrónico del cliente
-                  example: "juanperez@example.com"
-      responses:
-        '200':
-          description: Cliente creado exitosamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Cliente creado exitosamente"
-                  cliente:
-                    type: object
-                    properties:
-                      clDocumento:
-                        type: integer
-                        example: 12345678
-                      clNombre:
-                        type: string
-                        example: "Juan Pérez"
-                      clDireccion:
-                        type: string
-                        example: "Calle Falsa 123"
-                      clTelefono:
-                        type: string
-                        example: "+1234567890"
-                      clCorreo:
-                        type: string
-                        example: "juanperez@example.com"
-        '500':
-          description: Error al crear el cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al crear el cliente"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-    get:
-      summary: Obtener todos los clientes
-      description: Recupera todos los clientes existentes en el sistema.
-      operationId: obtenerClienteDIL
-      tags:
-        - Clientes
-      responses:
-        '200':
-          description: Clientes obtenidos correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Clientes obtenidos correctamente"
-                  clientes:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        clDocumento:
-                          type: integer
-                          example: 12345678
-                        clNombre:
-                          type: string
-                          example: "Juan Pérez"
-                        clDireccion:
-                          type: string
-                          example: "Calle Falsa 123"
-                        clTelefono:
-                          type: string
-                          example: "+1234567890"
-                        clCorreo:
-                          type: string
-                          example: "juanperez@example.com"
-        '500':
-          description: Error al obtener los clientes
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al obtener los clientes"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-  /clientes/{id}:
-    put:
-      summary: Actualizar un cliente
-      description: Actualiza los datos de un cliente existente en el sistema.
-      operationId: actualizarClienteDIL
-      tags:
-        - Clientes
-      parameters:
-        - name: id
-          in: path
-          description: Documento de identidad del cliente a actualizar
-          required: true
-          schema:
-            type: integer
-            example: 12345678
-      requestBody:
-        description: Datos del cliente a actualizar
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                clNombre:
-                  type: string
-                  description: Nombre del cliente
-                  example: "Juan Pérez"
-                clDireccion:
-                  type: string
-                  description: Dirección del cliente
-                  example: "Calle Falsa 123"
-                clTelefono:
-                  type: string
-                  description: Teléfono del cliente
-                  example: "+1234567890"
-                clCorreo:
-                  type: string
-                  description: Correo electrónico del cliente
-                  example: "juanperez@example.com"
-      responses:
-        '200':
-          description: Cliente actualizado exitosamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Cliente actualizado exitosamente"
-                  cliente:
-                    type: object
-                    properties:
-                      clDocumento:
-                        type: integer
-                        example: 12345678
-                      clNombre:
-                        type: string
-                        example: "Juan Pérez"
-                      clDireccion:
-                        type: string
-                        example: "Calle Falsa 123"
-                      clTelefono:
-                        type: string
-                        example: "+1234567890"
-                      clCorreo:
-                        type: string
-                        example: "juanperez@example.com"
-        '500':
-          description: Error al actualizar el cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al actualizar el cliente"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-    delete:
-      summary: Eliminar un cliente
-      description: Elimina un cliente existente del sistema usando su documento de identidad.
-      operationId: eliminarClienteDIL
-      tags:
-        - Clientes
-      parameters:
-        - name: id
-          in: path
-          description: Documento de identidad del cliente a eliminar
-          required: true
-          schema:
-            type: integer
-            example: 12345678
-      responses:
-        '200':
-          description: Cliente eliminado exitosamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Cliente eliminado exitosamente"
-        '500':
-          description: Error al eliminar el cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al eliminar el cliente"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-  # Rutas de detalles de factura
-  /facturaDetalle:
-    post:
-      summary: Crear un nuevo detalle de factura
-      operationId: crearFacturaDetalleDIL
-      tags:
-        - Factura Detalle
-      requestBody:
-        description: Datos del detalle de factura a crear
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                producto:
-                  type: string
-                  description: Nombre del producto
-                  example: "Producto A"
-                cantidad:
-                  type: integer
-                  description: Cantidad del producto
-                  example: 2
-                precioUnitario:
-                  type: number
-                  format: float
-                  description: Precio unitario del producto
-                  example: 50.0
-                total:
-                  type: number
-                  format: float
-                  description: Total calculado (cantidad * precioUnitario)
-                  example: 100.0
-      responses:
-        '200':
-          description: Detalle de factura creado exitosamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Detalle de factura creado exitosamente"
-                  detalle:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
-                      producto:
-                        type: string
-                        example: "Producto A"
-                      cantidad:
-                        type: integer
-                        example: 2
-                      precioUnitario:
-                        type: number
-                        format: float
-                        example: 50.0
-                      total:
-                        type: number
-                        format: float
-                        example: 100.0
-        '500':
-          description: Error al crear el detalle de factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al crear el detalle de factura"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-    get:
-      summary: Obtener todos los detalles de factura
-      operationId: obtenerFacturaDetalleDIL
-      tags:
-        - Factura Detalle
-      responses:
-        '200':
-          description: Detalles de factura obtenidos correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Detalles de factura obtenidos correctamente"
-                  detalles:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 1
-                        producto:
-                          type: string
-                          example: "Producto A"
-                        cantidad:
-                          type: integer
-                          example: 2
-                        precioUnitario:
-                          type: number
-                          format: float
-                          example: 50.0
-                        total:
-                          type: number
-                          format: float
-                          example: 100.0
-        '500':
-          description: Error al obtener los detalles de factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al obtener los detalles de factura"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-  /factura-detalle/{id}:
-    put:
-      summary: Actualizar un detalle de factura
-      operationId: actualizarFacturaDetalleDIL
-      tags:
-        - Factura Detalle
-      parameters:
-        - name: id
-          in: path
-          description: ID del detalle de factura a actualizar
-          required: true
-          schema:
-            type: integer
-            example: 1
-      requestBody:
-        description: Datos actualizados del detalle de factura
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                producto:
-                  type: string
-                  description: Nombre del producto
-                  example: "Producto A"
-                cantidad:
-                  type: integer
-                  description: Cantidad del producto
-                  example: 2
-                precioUnitario:
-                  type: number
-                  format: float
-                  description: Precio unitario del producto
-                  example: 50.0
-                total:
-                  type: number
-                  format: float
-                  description: Total calculado
-                  example: 100.0
-      responses:
-        '200':
-          description: Detalle de factura actualizado exitosamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Detalle de factura actualizado exitosamente"
-                  detalle:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
-                      producto:
-                        type: string
-                        example: "Producto A"
-                      cantidad:
-                        type: integer
-                        example: 2
-                      precioUnitario:
-                        type: number
-                        format: float
-                        example: 50.0
-                      total:
-                        type: number
-                        format: float
-                        example: 100.0
-        '500':
-          description: Error al actualizar el detalle de factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al actualizar el detalle de factura"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-    delete:
-      summary: Eliminar un detalle de factura
-      operationId: eliminarFacturaDetalleDIL
-      tags:
-        - Factura Detalle
-      parameters:
-        - name: id
-          in: path
-          description: ID del detalle de factura a eliminar
-          required: true
-          schema:
-            type: integer
-            example: 1
-      responses:
-        '200':
-          description: Detalle de factura eliminado exitosamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Detalle de factura eliminado exitosamente"
-        '500':
-          description: Error al eliminar el detalle de factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al eliminar el detalle de factura"
-                  error:
-                    type: string
-                    example: "Details of the error."
-
-#rutas documentacion factura
-  /facturas:
-    post:
-      summary: Crear una nueva factura
-      description: Permite crear una nueva factura asociada a un cliente y un vendedor existentes.
-      operationId: crearFacturaDIL
-      tags:
-        - Factura
-      requestBody:
-        description: Datos de la factura a crear
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                facCliente:
-                  type: string
-                  description: Documento del cliente que recibirá la factura
-                  example: "12345678"
-                facVendedor:
-                  type: string
-                  description: Usuario del vendedor que generará la factura
-                  example: "jdoe"
-                facValorTotal:
-                  type: number
-                  format: float
-                  description: Valor total de la factura
-                  example: 150.75
-      responses:
-        '200':
-          description: Factura creada correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Factura creada correctamente"
-                  factura:
-                    type: object
-                    properties:
-                      facNumero:
-                        type: integer
-                        example: 1
-                      facCliente:
-                        type: string
-                        example: "12345678"
-                      facVendedor:
-                        type: string
-                        example: "jdoe"
-                      facValorTotal:
-                        type: number
-                        format: float
-                        example: 150.75
-        '400':
-          description: Error al crear la factura, cliente o vendedor no encontrados
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Cliente o vendedor no encontrados"
-        '500':
-          description: Error al crear la factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al crear la factura"
-                  error:
-                    type: string
-                    example: "Detalles del error."
-
-  /factura:
-    get:
-      summary: Obtener todas las facturas
-      description: Obtiene todas las facturas con los detalles de cliente, vendedor y productos asociados.
-      operationId: obtenerFacturaDIL
-      tags:
-        - Factura
-      responses:
-        '200':
-          description: Facturas obtenidas correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Facturas obtenidas correctamente"
-                  facturas:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        facNumero:
-                          type: integer
-                          example: 1
-                        facFecha:
-                          type: string
-                          format: date
-                          example: "2023-03-09"
-                        facCliente:
-                          type: string
-                          example: "12345678"
-                        facValorTotal:
-                          type: number
-                          format: float
-                          example: 150.75
-                        facVendedor:
-                          type: string
-                          example: "jdoe"
-                        cliente:
-                          type: object
-                          properties:
-                            clDocumento:
-                              type: string
-                              example: "12345678"
-                            clNombre:
-                              type: string
-                              example: "Juan Pérez"
-                            clDireccion:
-                              type: string
-                              example: "Calle 123"
-                            clTelefono:
-                              type: string
-                              example: "123456789"
-                            clCorreo:
-                              type: string
-                              example: "juan@example.com"
-                        detalle:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              facProducto:
-                                type: string
-                                example: "PROD001"
-                              facCantidad:
-                                type: integer
-                                example: 2
-                              facPrecioUnitario:
-                                type: number
-                                format: float
-                                example: 15.50
-                              facPrecioTotal:
-                                type: number
-                                format: float
-                                example: 31.00
-                              producto:
-                                type: object
-                                properties:
-                                  proCodigo:
-                                    type: string
-                                    example: "PROD001"
-                                  proDescripcion:
-                                    type: string
-                                    example: "Producto ejemplo"
-        '404':
-          description: No hay facturas registradas
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "No hay facturas registradas"
-        '500':
-          description: Error al obtener las facturas
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al obtener las facturas"
-                  error:
-                    type: string
-                    example: "Detalles del error."
-
-  /factura/{id}:
-    put:
-      summary: Actualizar una factura existente
-      description: Actualiza los datos de una factura existente utilizando su número de factura.
-      operationId: actualizarFacturaDIL
-      tags:
-        - Factura
-      parameters:
-        - name: id
-          in: path
-          description: ID de la factura a actualizar
-          required: true
-          schema:
-            type: integer
-            example: 1
-      requestBody:
-        description: Datos de la factura a actualizar
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                facValorTotal:
-                  type: number
-                  format: float
-                  description: Nuevo valor total de la factura
-                  example: 160.00
-      responses:
-        '200':
-          description: Factura actualizada correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Factura actualizada correctamente"
-                  factura:
-                    type: object
-                    properties:
-                      facNumero:
-                        type: integer
-                        example: 1
-                      facCliente:
-                        type: string
-                        example: "12345678"
-                      facVendedor:
-                        type: string
-                        example: "jdoe"
-                      facValorTotal:
-                        type: number
-                        format: float
-                        example: 160.00
-        '400':
-          description: Error al actualizar la factura, no encontrada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Factura no encontrada"
-        '500':
-          description: Error al actualizar la factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al actualizar la factura"
-                  error:
-                    type: string
-                    example: "Detalles del error."
-
-    delete:
-      summary: Eliminar una factura
-      description: Elimina una factura existente utilizando su número de factura.
-      operationId: eliminarFacturaDIL
-      tags:
-        - Factura
-      parameters:
-        - name: id
-          in: path
-          description: ID de la factura a eliminar
-          required: true
-          schema:
-            type: integer
-            example: 1
-      responses:
-        '200':
-          description: Factura eliminada correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Factura eliminada correctamente"
-        '400':
-          description: Error al eliminar la factura, no encontrada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Factura no encontrada"
-        '500':
-          description: Error al eliminar la factura
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al eliminar la factura"
-                  error:
-                    type: string
-                    example: "Detalles del error."
-
-# rutas documentación login
+  # Rutas de Autenticación
   /login:
     post:
-      summary: Iniciar sesión
-      description: Permite que un vendedor inicie sesión utilizando su usuario y contraseña para obtener un token JWT.
-      operationId: loginUsuarioDIL
+      summary: Iniciar sesión de usuario
+      description: Autentica a un usuario y devuelve un token JWT.
+      operationId: loginUserDIL
       tags:
-        - Autenticación
+        - Authentication
       requestBody:
-        description: Credenciales del vendedor para iniciar sesión
+        description: Credenciales del usuario
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                venUsuario:
+                email:
                   type: string
-                  description: Nombre de usuario del vendedor
-                  example: "jdoe"
-                venContrasena:
+                  description: Correo electrónico del usuario
+                  example: "usuario@ejemplo.com"
+                password:
                   type: string
-                  description: Contraseña del vendedor
-                  example: "password123"
+                  description: Contraseña del usuario
+                  example: "contraseña123"
+              required:
+                - email
+                - password
       responses:
         '200':
-          description: Login exitoso, token generado
+          description: Inicio de sesión exitoso
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Login exitoso"
+                    example: "Inicio de sesión exitoso"
                   token:
                     type: string
-                    description: Token JWT generado para el vendedor
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Impkb2UifQ.abc123"
-        '401':
-          description: Usuario o contraseña incorrecta
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Usuario no encontrado o contraseña incorrecta"
-        '500':
-          description: Error en el login
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error en el login"
-                  error:
-                    type: string
-                    example: "Detalles del error"
-
-# rutas documentación productos
-  /productos:
-    post:
-      summary: Crear un nuevo producto
-      description: Crea un nuevo producto en la base de datos.
-      operationId: crearProductoDIL
-      tags:
-        - Productos
-      requestBody:
-        description: Datos del producto a crear
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                proNombre:
-                  type: string
-                  description: Nombre del producto
-                  example: "Producto A"
-                proDescripcion:
-                  type: string
-                  description: Descripción del producto
-                  example: "Descripción del producto A"
-                proCantidad:
-                  type: integer
-                  description: Cantidad disponible del producto
-                  example: 100
-                proPrecio:
-                  type: number
-                  format: float
-                  description: Precio del producto
-                  example: 50.0
-      responses:
-        '200':
-          description: Producto creado correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Producto creado exitosamente"
-                  producto:
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  user:
                     type: object
                     properties:
-                      proCodigo:
+                      id:
                         type: integer
-                        example: 1
-                      proNombre:
+                        example: 12345678
+                      fullname:
                         type: string
-                        example: "Producto A"
-                      proDescripcion:
+                        example: "Juan Pérez"
+                      email:
                         type: string
-                        example: "Descripción del producto A"
-                      proCantidad:
-                        type: integer
-                        example: 100
-                      proPrecio:
-                        type: number
-                        format: float
-                        example: 50.0
-        '500':
-          description: Error al crear el producto
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al crear el producto"
-
-  /productos:
-    get:
-      summary: Obtener todos los productos
-      description: Obtiene todos los productos disponibles junto con su información de venta.
-      operationId: obtenerProductoDIL
-      tags:
-        - Productos
-      responses:
-        '200':
-          description: Productos obtenidos correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Productos obtenidos correctamente"
-                  productos:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        proCodigo:
-                          type: integer
-                          example: 1
-                        proNombre:
-                          type: string
-                          example: "Producto A"
-                        unidadesVendidas:
-                          type: integer
-                          example: 50
-                        Productos_disponible:
-                          type: integer
-                          example: 50
-        '500':
-          description: Error al obtener los productos
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al obtener los productos"
-
-  /productos-mas-vendidos:
-    get:
-      summary: Obtener los productos más vendidos
-      description: Obtiene los 5 productos más vendidos y su cantidad vendida.
-      operationId: obtenerProductosMasVendidosDIL
-      tags:
-        - Productos
-      responses:
-        '200':
-          description: Productos más vendidos obtenidos correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Productos más vendidos obtenidos correctamente"
-                  productos:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        proCodigo:
-                          type: integer
-                          example: 1
-                        proNombre:
-                          type: string
-                          example: "Producto A"
-                        cantidadVendida:
-                          type: integer
-                          example: 500
-        '500':
-          description: Error al obtener los productos más vendidos
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al obtener productos más vendidos"
-
-  /productos/{id}:
-    put:
-      summary: Actualizar un producto
-      description: Actualiza los detalles de un producto existente.
-      operationId: actualizarProductoDIL
-      tags:
-        - Productos
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID del producto a actualizar
-          schema:
-            type: integer
-            example: 1
-      requestBody:
-        description: Datos actualizados del producto
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                proNombre:
-                  type: string
-                  description: Nombre del producto
-                  example: "Producto B"
-                proDescripcion:
-                  type: string
-                  description: Descripción del producto
-                  example: "Descripción actualizada"
-                proCantidad:
-                  type: integer
-                  description: Cantidad disponible del producto
-                  example: 120
-                proPrecio:
-                  type: number
-                  format: float
-                  description: Precio del producto
-                  example: 55.0
-      responses:
-        '200':
-          description: Producto actualizado correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Producto actualizado correctamente"
-                  producto:
-                    type: object
-                    properties:
-                      proCodigo:
-                        type: integer
-                        example: 1
-                      proNombre:
-                        type: string
-                        example: "Producto B"
-                      proDescripcion:
-                        type: string
-                        example: "Descripción actualizada"
-                      proCantidad:
-                        type: integer
-                        example: 120
-                      proPrecio:
-                        type: number
-                        format: float
-                        example: 55.0
-        '500':
-          description: Error al actualizar el producto
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al actualizar el producto"
-
-    delete:
-      summary: Eliminar un producto
-      description: Elimina un producto de la base de datos.
-      operationId: eliminarProductoDIL
-      tags:
-        - Productos
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID del producto a eliminar
-          schema:
-            type: integer
-            example: 1
-      responses:
-        '200':
-          description: Producto eliminado correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Producto eliminado correctamente"
-        '500':
-          description: Error al eliminar el producto
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Error al eliminar el producto"
-
-#rutas documentacion vendedores 
-  /vendedores:
-    post:
-      summary: Crear un nuevo vendedor
-      description: Crea un nuevo vendedor con la contraseña cifrada.
-      operationId: crearVendedorDIL
-      tags:
-        - Vendedores
-      requestBody:
-        description: Datos del vendedor a crear
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                venUsuario:
-                  type: string
-                  description: Identificador único del vendedor
-                  example: "juanperez"
-                venContrasena:
-                  type: string
-                  description: Contraseña del vendedor
-                  example: "password123"
-                rol:
-                  type: string
-                  description: Rol del vendedor (por defecto "admin")
-                  example: "vendedor"
-      responses:
-        '200':
-          description: Vendedor creado correctamente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Vendedor creado exitosamente"
-                  vendedor:
-                    type: object
-                    properties:
-                      venUsuario:
-                        type: string
-                        example: "juanperez"
-                      venContrasena:
-                        type: string
-                        example: "$2a$10$yI6g0..."
+                        example: "usuario@ejemplo.com"
                       rol:
                         type: string
-                        example: "vendedor"
-        '500':
-          description: Error al crear el vendedor
+                        example: "admin"
+        '401':
+          description: Contraseña incorrecta
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Error al crear el vendedor"
+                    example: "Contraseña incorrecta"
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Usuario no encontrado"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
 
-  /vendedores:
-    get:
-      summary: Obtener todos los vendedores
-      description: Obtiene una lista de todos los vendedores.
-      operationId: obtenerVendedorDIL
+  # Rutas de Usuarios
+  /usuarios:
+    post:
+      summary: Crear un nuevo usuario
+      description: Crea un nuevo usuario con una contraseña cifrada.
+      operationId: createUserDIL
       tags:
-        - Vendedores
+        - Users
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Datos del usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                identificacion:
+                  type: integer
+                  description: Número de identificación del usuario
+                  example: 12345678
+                fullname:
+                  type: string
+                  description: Nombre completo del usuario
+                  example: "Juan Pérez"
+                email:
+                  type: string
+                  description: Correo electrónico del usuario
+                  example: "juan@ejemplo.com"
+                password:
+                  type: string
+                  description: Contraseña del usuario
+                  example: "contraseña123"
+                rol:
+                  type: string
+                  description: Rol del usuario
+                  example: "admin"
+              required:
+                - identificacion
+                - fullname
+                - email
+                - password
+                - rol
       responses:
         '200':
-          description: Vendedores obtenidos correctamente
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "El usuario fue creado exitosamente"
+        '400':
+          description: La contraseña es requerida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "La contraseña es requerida"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    get:
+      summary: Obtener todos los usuarios
+      description: Recupera una lista de todos los usuarios.
+      operationId: getUserDIL
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Usuarios obtenidos exitosamente
           content:
             application/json:
               schema:
@@ -1245,167 +193,192 @@ paths:
                 items:
                   type: object
                   properties:
-                    venUsuario:
+                    identificacion:
                       type: string
-                      example: "juanperez"
-                    venContrasena:
+                      example: "12345678"
+                    fullname:
                       type: string
-                      example: "$2a$10$yI6g0..."
+                      example: "Juan Pérez"
+                    email:
+                      type: string
+                      example: "juan@ejemplo.com"
                     rol:
                       type: string
-                      example: "vendedor"
-        '500':
-          description: Error al obtener los vendedores
+                      example: "admin"
+        '400':
+          description: Error al obtener usuarios
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Error al obtener los vendedores"
+                    example: "Error al obtener usuarios"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
 
-  /vendedores/:venCodigo/productos:
+  /usuarios/{id}:
     get:
-      summary: Obtener productos vendidos por un vendedor
-      description: Obtiene la lista de productos vendidos por un vendedor específico.
-      operationId: obtenerProductosVendidosPorVendedorDIL
+      summary: Obtener usuario por ID
+      description: Recupera un usuario por su número de identificación.
+      operationId: getUserByIdDIL
       tags:
-        - Vendedores
+        - Users
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
+          description: Número de identificación del usuario
           required: true
-          description: Identificador del vendedor para obtener sus productos vendidos
           schema:
-            type: string
-            example: "juanperez"
+            type: integer
+            example: 12345678
       responses:
         '200':
-          description: Productos vendidos obtenidos correctamente
+          description: Usuario obtenido exitosamente
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  identificacion:
                     type: string
-                    example: "Productos vendidos por vendedor obtenidos correctamente"
-                  productosVendidos:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        proCodigo:
-                          type: integer
-                          example: 1
-                        proDescripcion:
-                          type: string
-                          example: "Producto A"
-                        proValor:
-                          type: number
-                          format: float
-                          example: 50.0
-                        facCantidad:
-                          type: integer
-                          example: 30
+                    example: "12345678"
+                  fullname:
+                    type: string
+                    example: "Juan Pérez"
+                  email:
+                    type: string
+                    example: "juan@ejemplo.com"
+                  rol:
+                    type: string
+                    example: "admin"
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Usuario no encontrado"
         '500':
-          description: Error al obtener los productos vendidos
+          description: Error interno del servidor
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Error al obtener los productos vendidos"
+                    example: "Error interno del servidor"
 
-  /vendedores/{id}:
     put:
-      summary: Actualizar un vendedor
-      description: Actualiza los detalles de un vendedor existente.
-      operationId: actualizarVendedorDIL
+      summary: Actualizar usuario
+      description: Actualiza la información de un usuario.
+      operationId: updateUserDIL
       tags:
-        - Vendedores
+        - Users
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
+          description: Número de identificación del usuario
           required: true
-          description: Identificador del vendedor a actualizar
           schema:
-            type: string
-            example: "juanperez"
+            type: integer
+            example: 12345678
       requestBody:
-        description: Datos actualizados del vendedor
+        description: Datos actualizados del usuario
         required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                venUsuario:
+                fullname:
                   type: string
-                  description: Identificador único del vendedor
-                  example: "juanperez"
-                venContrasena:
+                  description: Nombre completo del usuario
+                  example: "Juan Pérez"
+                email:
                   type: string
-                  description: Nueva contraseña del vendedor
-                  example: "newpassword123"
+                  description: Correo electrónico del usuario
+                  example: "juan@ejemplo.com"
+                password:
+                  type: string
+                  description: Nueva contraseña del usuario (opcional)
+                  example: "nuevaContraseña123"
                 rol:
                   type: string
-                  description: Rol del vendedor
-                  example: "vendedor"
+                  description: Rol del usuario
+                  example: "admin"
+              required:
+                - fullname
+                - email
+                - rol
       responses:
         '200':
-          description: Vendedor actualizado correctamente
+          description: Usuario actualizado exitosamente
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Vendedor actualizado exitosamente"
-                  vendedor:
-                    type: object
-                    properties:
-                      venUsuario:
-                        type: string
-                        example: "juanperez"
-                      venContrasena:
-                        type: string
-                        example: "$2a$10$yI6g0..."
-                      rol:
-                        type: string
-                        example: "vendedor"
+                    example: "Usuario actualizado exitosamente"
+        '400':
+          description: Error al actualizar usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error al actualizar usuario"
         '500':
-          description: Error al actualizar el vendedor
+          description: Error interno del servidor
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Error al actualizar el vendedor"
+                    example: "Error interno del servidor"
 
     delete:
-      summary: Eliminar un vendedor
-      description: Elimina un vendedor de la base de datos.
-      operationId: eliminarVendedorDIL
+      summary: Eliminar usuario
+      description: Elimina un usuario por su número de identificación.
+      operationId: deleteUserDIL
       tags:
-        - Vendedores
+        - Users
+      security:
+        - BearerAuth: []
       parameters:
         - name: id
           in: path
+          description: Número de identificación del usuario
           required: true
-          description: Identificador del vendedor a eliminar
           schema:
-            type: string
-            example: "juanperez"
+            type: integer
+            example: 12345678
       responses:
         '200':
-          description: Vendedor eliminado correctamente
+          description: Usuario eliminado exitosamente
           content:
             application/json:
               schema:
@@ -1413,14 +386,1251 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Vendedor eliminado exitosamente"
+                    example: "Usuario eliminado exitosamente"
         '500':
-          description: Error al eliminar el vendedor
+          description: Error interno del servidor
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  msg:
                     type: string
-                    example: "Error al eliminar el vendedor"
+                    example: "Error interno del servidor"
+
+  # Rutas de Categorías
+  /categorias:
+    post:
+      summary: Crear una nueva categoría
+      description: Crea una nueva categoría para mascotas.
+      operationId: createCategoryDIL
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Datos de la categoría
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la categoría
+                  example: "Perro"
+              required:
+                - name
+      responses:
+        '201':
+          description: Categoría creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Categoría creada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    get:
+      summary: Obtener todas las categorías
+      description: Recupera una lista de todas las categorías.
+      operationId: getCategoriesDIL
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Categorías obtenidas exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Perro"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+  /categorias/{id}:
+    get:
+      summary: Obtener categoría por ID
+      description: Recupera una categoría por su ID.
+      operationId: getCategoryByIdDIL
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la categoría
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Categoría obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Perro"
+        '404':
+          description: Categoría no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Categoría no encontrada"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    put:
+      summary: Actualizar categoría
+      description: Actualiza la información de una categoría.
+      operationId: updateCategoryDIL
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la categoría
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados de la categoría
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la categoría
+                  example: "Perro"
+              required:
+                - name
+      responses:
+        '200':
+          description: Categoría actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Categoría actualizada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    delete:
+      summary: Eliminar categoría
+      description: Elimina una categoría por su ID.
+      operationId: deleteCategoryDIL
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la categoría
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Categoría eliminada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Categoría eliminada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+  # Rutas de Géneros
+  /generos:
+    post:
+      summary: Crear un nuevo género
+      description: Crea un nuevo género para mascotas.
+      operationId: createGenderDIL
+      tags:
+        - Genders
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Datos del género
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre del género
+                  example: "Macho"
+              required:
+                - name
+      responses:
+        '201':
+          description: Género creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Género creado exitosamente"
+                  gender:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Macho"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    get:
+      summary: Obtener todos los géneros
+      description: Recupera una lista de todos los géneros.
+      operationId: getGendersDIL
+      tags:
+        - Genders
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Géneros obtenidos exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Macho"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+  /generos/{id}:
+    get:
+      summary: Obtener género por ID
+      description: Recupera un género por su ID.
+      operationId: getGenderByIdDIL
+      tags:
+        - Genders
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID del género
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Género obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Macho"
+        '404':
+          description: Género no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Género no encontrado"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    put:
+      summary: Actualizar género
+      description: Actualiza la información de un género.
+      operationId: updateGenderDIL
+      tags:
+        - Genders
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID del género
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados del género
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre del género
+                  example: "Macho"
+              required:
+                - name
+      responses:
+        '200':
+          description: Género actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Género actualizado exitosamente"
+                  gender:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Macho"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    delete:
+      summary: Eliminar género
+      description: Elimina un género por su ID.
+      operationId: deleteGenderDIL
+      tags:
+        - Genders
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID del género
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Género eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Género eliminado exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+  # Rutas de Razas
+  /razas:
+    post:
+      summary: Crear una nueva raza
+      description: Crea una nueva raza para mascotas.
+      operationId: createRaceDIL
+      tags:
+        - Races
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Datos de la raza
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la raza
+                  example: "Labrador"
+              required:
+                - name
+      responses:
+        '200':
+          description: Raza creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Raza creada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    get:
+      summary: Obtener todas las razas
+      description: Recupera una lista de todas las razas.
+      operationId: getRacesDIL
+      tags:
+        - Races
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Razas obtenidas exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Labrador"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+  /razas/{id}:
+    get:
+      summary: Obtener raza por ID
+      description: Recupera una raza por su ID.
+      operationId: getRaceByIdDIL
+      tags:
+        - Races
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la raza
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Raza obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Labrador"
+        '404':
+          description: Raza no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Raza no encontrada"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    put:
+      summary: Actualizar raza
+      description: Actualiza la información de una raza.
+      operationId: updateRaceDIL
+      tags:
+        - Races
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la raza
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados de la raza
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la raza
+                  example: "Labrador"
+              required:
+                - name
+      responses:
+        '200':
+          description: Raza actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Raza actualizada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+    delete:
+      summary: Eliminar raza
+      description: Elimina una raza por su ID.
+      operationId: deleteRaceDIL
+      tags:
+        - Races
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la raza
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Raza eliminada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Raza eliminada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+
+  # Rutas de Mascotas
+  /mascotas:
+    post:
+      summary: Crear una nueva mascota
+      description: Crea una nueva mascota con raza, categoría, género y usuario asociados.
+      operationId: createPetDIL
+      tags:
+        - Pets
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: Datos de la mascota
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                race_id:
+                  type: integer
+                  description: ID de la raza de la mascota
+                  example: 1
+                category_id:
+                  type: integer
+                  description: ID de la categoría de la mascota
+                  example: 1
+                gender_id:
+                  type: integer
+                  description: ID del género de la mascota
+                  example: 1
+                User_id:
+                  type: integer
+                  description: ID del usuario propietario de la mascota
+                  example: 12345678
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                  example: "Max"
+                estado:
+                  type: string
+                  description: Estado de la mascota
+                  example: "Activo"
+                photo:
+                  type: string
+                  format: binary
+                  description: Foto de la mascota. Solo se aceptan imágenes JPEG o PNG. Tamaño máximo: 5MB.
+                  x-max-file-size: 5242880
+                  x-allowed-mime-types:
+                    - image/jpeg
+                    - image/png
+              required:
+                - race_id
+                - category_id
+                - gender_id
+                - User_id
+                - name
+                - estado
+      responses:
+        '201':
+          description: Mascota creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Mascota creada exitosamente"
+                  pet:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Max"
+                      photo:
+                        type: string
+                        example: "max.jpg"
+                      estado:
+                        type: string
+                        example: "Activo"
+                      User_id:
+                        type: string
+                        example: "12345678"
+                      race:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Labrador"
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Perro"
+                      gender:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Macho"
+                      user:
+                        type: object
+                        properties:
+                          identificacion:
+                            type: string
+                            example: "12345678"
+                          fullname:
+                            type: string
+                            example: "Juan Pérez"
+                          email:
+                            type: string
+                            example: "juan@ejemplo.com"
+                          rol:
+                            type: string
+                            example: "admin"
+        '400':
+          description: Error de validación (IDs inválidos, tipo de archivo no permitido o tamaño excedido)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Valores de ID inválidos, tipo de archivo no permitido o tamaño de archivo excedido"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+                  error:
+                    type: string
+                    example: "Detalles del error"
+
+    get:
+      summary: Obtener todas las mascotas
+      description: Recupera una lista de todas las mascotas con sus datos asociados.
+      operationId: getPetsDIL
+      tags:
+        - Pets
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Mascotas obtenidas exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Max"
+                    photo:
+                      type: string
+                      example: "max.jpg"
+                    estado:
+                      type: string
+                      example: "Activo"
+                    User_id:
+                      type: string
+                      example: "12345678"
+                    race:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: "Labrador"
+                    category:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: "Perro"
+                    gender:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: "Macho"
+                    user:
+                      type: object
+                      properties:
+                        identificacion:
+                          type: string
+                          example: "12345678"
+                        fullname:
+                          type: string
+                          example: "Juan Pérez"
+                        email:
+                          type: string
+                          example: "juan@ejemplo.com"
+                        rol:
+                          type: string
+                          example: "admin"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+                  error:
+                    type: string
+                    example: "Detalles del error"
+
+  /mascotas/{id}:
+    get:
+      summary: Obtener mascota por ID
+      description: Recupera una mascota por su ID con datos asociados.
+      operationId: getPetByIdDIL
+      tags:
+        - Pets
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la mascota
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Mascota obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Max"
+                  photo:
+                    type: string
+                    example: "max.jpg"
+                  estado:
+                    type: string
+                    example: "Activo"
+                  User_id:
+                    type: string
+                    example: "12345678"
+                  race:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Labrador"
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Perro"
+                  gender:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Macho"
+                  user:
+                    type: object
+                    properties:
+                      identificacion:
+                        type: string
+                        example: "12345678"
+                      fullname:
+                        type: string
+                        example: "Juan Pérez"
+                      email:
+                        type: string
+                        example: "juan@ejemplo.com"
+                      rol:
+                        type: string
+                        example: "admin"
+        '404':
+          description: Mascota no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Mascota no encontrada"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+                  error:
+                    type: string
+                    example: "Detalles del error"
+
+    put:
+      summary: Actualizar mascota
+      description: Actualiza la información de una mascota.
+      operationId: updatePetDIL
+      tags:
+        - Pets
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la mascota
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Datos actualizados de la mascota
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                race_id:
+                  type: integer
+                  description: ID de la raza de la mascota
+                  example: 1
+                category_id:
+                  type: integer
+                  description: ID de la categoría de la mascota
+                  example: 1
+                gender_id:
+                  type: integer
+                  description: ID del género de la mascota
+                  example: 1
+                User_id:
+                  type: integer
+                  description: ID del usuario propietario de la mascota
+                  example: 12345678
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                  example: "Max"
+                estado:
+                  type: string
+                  description: Estado de la mascota
+                  example: "Activo"
+                currentPhoto:
+                  type: string
+                  description: Nombre del archivo de la foto actual
+                  example: "max.jpg"
+                photo:
+                  type: string
+                  format: binary
+                  description: Nueva foto de la mascota (opcional). Solo se aceptan imágenes JPEG o PNG. Tamaño máximo: 5MB.
+                  x-max-file-size: 5242880
+                  x-allowed-mime-types:
+                    - image/jpeg
+                    - image/png
+              required:
+                - race_id
+                - category_id
+                - gender_id
+                - User_id
+                - name
+                - estado
+      responses:
+        '200':
+          description: Mascota actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Mascota actualizada exitosamente"
+                  pet:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Max"
+                      photo:
+                        type: string
+                        example: "max.jpg"
+                      estado:
+                        type: string
+                        example: "Activo"
+                      User_id:
+                        type: string
+                        example: "12345678"
+                      race:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Labrador"
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Perro"
+                      gender:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "Macho"
+                      user:
+                        type: object
+                        properties:
+                          identificacion:
+                            type: string
+                            example: "12345678"
+                          fullname:
+                            type: string
+                            example: "Juan Pérez"
+                          email:
+                            type: string
+                            example: "juan@ejemplo.com"
+                          rol:
+                            type: string
+                            example: "admin"
+        '400':
+          description: Todos los campos son requeridos o error de validación (tipo de archivo no permitido o tamaño excedido)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Todos los campos son requeridos o tipo de archivo no permitido o tamaño de archivo excedido"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+                  error:
+                    type: string
+                    example: "Detalles del error"
+
+    delete:
+      summary: Eliminar mascota
+      description: Elimina una mascota por su ID.
+      operationId: deletePetDIL
+      tags:
+        - Pets
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de la mascota
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Mascota eliminada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Mascota eliminada exitosamente"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Error interno del servidor"
+                  error:
+                    type: string
+                    example: "Detalles del error"

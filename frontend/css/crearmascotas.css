@@ -64,11 +64,13 @@ form#petForm select {
 }
 
 
-#petForm .button a img {
-  border-radius: 50px;
-  text-align: center;
+.img-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   display: block;
   margin: 25px auto 0 auto;
-  cursor: pointer;
 }
+
 
