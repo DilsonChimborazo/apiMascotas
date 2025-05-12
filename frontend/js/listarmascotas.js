@@ -36,21 +36,19 @@ async function loadPets() {
       container.appendChild(card);
     });
 
-    container.querySelectorAll(".btn-delete").forEach(btn => {
+    document.querySelectorAll(".btn-delete").forEach(btn => {
       btn.addEventListener("click", async (e) => {
         e.preventDefault();
         const id = btn.getAttribute("data-id");
 
-        const confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta mascota?");
-        if (confirmDelete) {
+        if (confirm("¿Estás seguro de que deseas eliminar esta mascota?")) {
           try {
             const res = await fetch(`${API_URL}/petsDIL/${id}`, {
               method: "DELETE",
               headers: getAuthHeaders()
             });
-
             if (!res.ok) throw new Error("Error al eliminar mascota");
-            loadPets(); 
+            loadPets();
           } catch (error) {
             console.error("Error al eliminar mascota:", error);
             alert("Hubo un problema al eliminar la mascota");

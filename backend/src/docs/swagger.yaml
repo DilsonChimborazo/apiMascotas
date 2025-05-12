@@ -100,7 +100,7 @@ paths:
                     example: "Error interno del servidor"
 
   # Rutas de Usuarios
-  /usuarios:
+  /usersDIL:
     post:
       summary: Crear un nuevo usuario
       description: Crea un nuevo usuario con una contraseña cifrada.
@@ -226,7 +226,7 @@ paths:
                     type: string
                     example: "Error interno del servidor"
 
-  /usuarios/{id}:
+  /usersDIL/{id}:
     get:
       summary: Obtener usuario por ID
       description: Recupera un usuario por su número de identificación.
@@ -399,7 +399,7 @@ paths:
                     example: "Error interno del servidor"
 
   # Rutas de Categorías
-  /categorias:
+  /categoryDIL:
     post:
       summary: Crear una nueva categoría
       description: Crea una nueva categoría para mascotas.
@@ -479,7 +479,7 @@ paths:
                     type: string
                     example: "Error interno del servidor"
 
-  /categorias/{id}:
+  /categoryDIL/{id}:
     get:
       summary: Obtener categoría por ID
       description: Recupera una categoría por su ID.
@@ -622,7 +622,7 @@ paths:
                     example: "Error interno del servidor"
 
   # Rutas de Géneros
-  /generos:
+  /genderDIL:
     post:
       summary: Crear un nuevo género
       description: Crea un nuevo género para mascotas.
@@ -711,7 +711,7 @@ paths:
                     type: string
                     example: "Error interno del servidor"
 
-  /generos/{id}:
+  /genderDIL/{id}:
     get:
       summary: Obtener género por ID
       description: Recupera un género por su ID.
@@ -863,7 +863,7 @@ paths:
                     example: "Error interno del servidor"
 
   # Rutas de Razas
-  /razas:
+  /raceDIL:
     post:
       summary: Crear una nueva raza
       description: Crea una nueva raza para mascotas.
@@ -943,7 +943,7 @@ paths:
                     type: string
                     example: "Error interno del servidor"
 
-  /razas/{id}:
+  /raceDIL/{id}:
     get:
       summary: Obtener raza por ID
       description: Recupera una raza por su ID.
@@ -1086,7 +1086,7 @@ paths:
                     example: "Error interno del servidor"
 
   # Rutas de Mascotas
-  /mascotas:
+  /petsDIL:
     post:
       summary: Crear una nueva mascota
       description: Crea una nueva mascota con raza, categoría, género y usuario asociados.
@@ -1326,7 +1326,7 @@ paths:
                     type: string
                     example: "Detalles del error"
 
-  /mascotas/{id}:
+  /petsDIL/{id}:
     get:
       summary: Obtener mascota por ID
       description: Recupera una mascota por su ID con datos asociados.

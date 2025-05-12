@@ -5,6 +5,7 @@
   <title>Administrar Mascotas</title>
   <link rel="stylesheet" href="css/inicio.css">
   <script src="js/listarmascotas.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="header">
@@ -12,11 +13,21 @@
     <a href="index.html" class="close"><img src="images/btn-close.svg" alt="Cerrar"></a>
   </div>
 
+
+  <div class="btns-container">
+    <a href="http://192.168.101.7:3000/petsReporteDIL" target="_blank" class="btn-pdf">
+      Descargar reporte
+    </a>
+    <a href="grafica.html" target="_blank" class="btn-pdf">
+      Gráfica
+    </a>
+  </div>
+
+
   <div class="content">
     <a href="crearmascotas.html" class="btn-add">
       <img src="images/btn-add.svg" alt="Adicionar">
     </a>
-
     <div id="petList" class="pet-list"></div>
   </div>
 </body>

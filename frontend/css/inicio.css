@@ -82,3 +82,29 @@ body {
     height: 28px;
     cursor: pointer;
 }
+
+.btns-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    background-color: #2c9f45;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-pdf:hover {
+    background-color: #1a7c2f;
+}
+
+
