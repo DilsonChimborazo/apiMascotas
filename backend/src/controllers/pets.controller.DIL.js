@@ -17,35 +17,48 @@ function serializePet(pet) {
 
 export const createPetDIL = async (req, res) => {
     try {
-        const { race_id, category_id, gender_id, User_id, name, estado } = req.body;
-        const photo = req.file ? req.file.filename : null;
+        const { race_id, category_id, gender_id, User_id, name, estado, latitude, longitude } = req.body;
+        if (isNaN(race_id) || isNaN(category_id) || isNaN(gender_id) || isNaN(User_id)) {
+            return res.status(400).json({ msg: "Valores de ID inválidos" });
+        }
 
+        if (latitude && longitude) {
+            if (isNaN(latitude) || isNaN(longitude)) {
+                return res.status(400).json({ msg: "Latitud o longitud inválidas" });
+            }
+        }
+        const photo = req.file ? req.file.filename : null;
         const pet = await prisma.pets.create({
-        data: {
-            race: { connect: { id: Number(race_id) } },
-            category: { connect: { id: Number(category_id) } },
-            gender: { connect: { id: Number(gender_id) } },
-            user: { connect: { identificacion: BigInt(User_id) } },
-            name,
-            photo,
-            estado,
-        },
-        include: {
-            race: true,
-            category: true,
-            gender: true,
-            user: true,
-        },
+            data: {
+                race: { connect: { id: Number(race_id) } },
+                category: { connect: { id: Number(category_id) } },
+                gender: { connect: { id: Number(gender_id) } },
+                user: { connect: { identificacion: BigInt(User_id) } },
+                name,
+                photo,
+                estado,
+                latitude: latitude ? parseFloat(latitude) : null,
+                longitude: longitude ? parseFloat(longitude) : null,
+            },
+            include: {
+                race: true,
+                category: true,
+                gender: true,
+                user: true
+            }
         });
 
-        res
-        .status(201)
-        .json({ msg: "Mascota creada exitosamente", pet: serializePet(pet) });
+        res.status(201).json({ 
+            msg: "Mascota creada exitosamente", 
+            pet: serializePet(pet) 
+        });
+
     } catch (error) {
-        console.error("Error en createPetDIL:", error);
-        res
-        .status(500)
-        .json({ msg: "Error interno del servidor", error: error.message });
+        console.error("Error en createPetfjbs:", error);
+        res.status(500).json({ 
+            msg: "Error interno del servidor",
+            error: error.message 
+        });
     }
 };
 

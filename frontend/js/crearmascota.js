@@ -84,7 +84,9 @@ function setupFormHandler() {
       gender: document.getElementById("gender"),
       User: document.getElementById("User"),
       estado: document.getElementById("estado"),
-      photo: document.getElementById("photo")
+      photo: document.getElementById("photo"),
+      latitude: document.getElementById("latitude"),
+      longitude: document.getElementById("longitude")
     };
 
     for (const [field, element] of Object.entries(elements)) {
@@ -106,6 +108,8 @@ function setupFormHandler() {
     formData.append('gender_id', elements.gender.value);
     formData.append('User_id', elements.User.value);
     formData.append('estado', elements.estado.value);
+    formData.append('latitude', elements.latitude.value);
+    formData.append('longitude', elements.longitude.value);
 
     if (elements.photo.files[0]) {
       formData.append('photo', elements.photo.files[0]);
